@@ -1,3 +1,27 @@
+// v2
+function romanToInteger(str) {
+  const map = {
+    'I': 1,
+    'V': 5,
+    'X': 10,
+    'L': 50,
+    'C': 100,
+    'D': 500,
+    'M': 1000,
+  }
+
+  let sum = 0
+
+  for (let i = 0; i < str.length; i++) {
+    const sign = map[str[i]] < map[str[i+1]] ? -1 : 1
+
+    sum += map[str[i]] * sign
+  }
+
+  return sum
+}
+
+// v1
 function romanToInteger(str) {
   const map = {
     'I': 1,
@@ -16,15 +40,17 @@ function romanToInteger(str) {
   }
 
   let sum = 0
-  let roman = str
 
-  while (roman.length > 0) {
-    if (map[roman[0]] < map[roman[1]]) {
-      sum += map[`${roman[0]}${roman[1]}`]
-      roman = roman.slice(2)
+  for (let i = 0; i < str.length; i++) {
+    if (map[str[i]] < map[str[i+1]]) {
+      sum += map[`${str[i]}${str[i+1]}`]
+      i += 1
     } else {
-      sum += map[roman[0]]
-      roman = roman.slice(1)
+      sum += map[str[i]]
     }
   }
+
+  return sum
 }
+
+console.log(romanToInteger('MMMCDXX'))
