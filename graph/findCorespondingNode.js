@@ -5,25 +5,40 @@
  * @param {HTMLElement} nodeA
  */
 const findCorrespondingNode = (rootA, rootB, target) => {
-  if (rootA === target) {
-    return rootB;
-  }
+  // if (rootA === target) {
+  //   return rootB;
+  // }
 
-  const queueB = [rootB];
-  const queueA = [rootA];
+  // const queueB = [rootB];
+  // const queueA = [rootA];
 
-  while (queueA.length > 0) {
-    const currentNode = queueA.pop();
-    const currentNodeB = queueB.pop();
+  // while (queueA.length > 0) {
+  //   const currentNode = queueA.pop();
+  //   const currentNodeB = queueB.pop();
 
-    for (let i = 0; i < currentNode.children.length; i++) {
-      queueA.push(currentNode.children[i]);
-      queueB.push(currentNodeB.children[i]);
+  //   for (let i = 0; i < currentNode.children.length; i++) {
+  //     queueA.push(currentNode.children[i]);
+  //     queueB.push(currentNodeB.children[i]);
 
-      if (currentNode.children[i] === target) {
-        return currentNodeB.children[i];
-      }
+  //     if (currentNode.children[i] === target) {
+  //       return currentNodeB.children[i];
+  //     }
+  //   }
+  // }
+
+  const stackA = [rootA]
+  const stackB = [rootB]
+
+  while (stackA.length > 0) {
+    const currentNodeA = stackA.pop()
+    const currentNodeB = stackB.pop()
+
+    if (currentNodeA === target) {
+      return currentNodeB
     }
+
+    stackA.push(...currentNodeA.children)
+    stackB.push(...currentNodeB.children)
   }
 
   return null;
